@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: 0;
   padding: 0;
   background-image: url('https://source.unsplash.com/1600x900/?nature,water');
@@ -9,10 +9,20 @@ body {
 }
 
 #heading {
-  background: #000000d0;
-  color: #fff;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
+
+#icono {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 10px;
+}
+
+
 
 .box {
   width: 80%;
@@ -56,10 +66,26 @@ button {
   transition: background-color 0.3s ease; 
 }
 
-button:hover {
-  background-color: #663; 
+#Agregar:hover{
+  background-color: rgb(0, 112, 112);
+
 }
 
+#Eliminar:hover {
+  background-color: rgb(112, 0, 15); 
+}
+
+#Completar:hover {
+  background-color: rgb(0, 112, 15); 
+}
+
+.complete-btn, #Eliminar {
+  width: 100px;  
+}
+
+#Completar.volver:hover {
+  background-color: rgba(255, 145, 0, 0.514); 
+}
 
 .item {
   display: flex;
@@ -69,41 +95,8 @@ button:hover {
   border-bottom: 1px solid #444444;
 }
 
-.round {
-  position: relative;
-}
-
-input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-}
-
-input[type="checkbox"] + label {
-  position: relative;
-  padding-left: 25px;
-  cursor: pointer;
-}
-
-input[type="checkbox"] + label:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 18px;
-  height: 18px;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-}
-
-input[type="checkbox"]:checked + label:after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #fff;
+.tareas{
+  text-align: center !important;
 }
 
 #taskInput{
@@ -111,4 +104,19 @@ input[type="checkbox"]:checked + label:after {
   background: #444444;
   border: none;
   color: white;
+}
+
+.completed {
+  background-color: rgba(4, 122, 4, 0.247);
+}
+
+
+@media (max-width: 600px) {
+  .item div form,
+  .item div button {
+    margin-top: 10px;
+  }
+  #taskInput{
+    text-align: center;
+  }
 }

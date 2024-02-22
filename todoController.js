@@ -1,7 +1,9 @@
 const Item = require('./todoModel');
 
+
+//listar
 exports.getItems = (req, res) => {
-  Item.find({})
+  Item.find({}).sort({ completed: 1 })
     .then(items => {
         if (items.length === 0) {
             // Insertar datos si no hay ninguno
@@ -22,6 +24,7 @@ exports.getItems = (req, res) => {
     });
 };
 
+//crear
 exports.createItem = (req, res) => {
   const newItemName = req.body.n;
 
@@ -36,6 +39,7 @@ exports.createItem = (req, res) => {
     });
 };
 
+//eliminar
 exports.deleteItem = (req, res) => {
   const itemId = req.body.checkbox;
   Item.findByIdAndDelete(itemId)
@@ -46,5 +50,23 @@ exports.deleteItem = (req, res) => {
     .catch(err => {
       console.error("Error:", err);
       res.status(500).send("Error al eliminar el elemento");
+    });
+};
+
+//completar
+exports.completeItem = (req, res) => {
+  const itemId = req.body.checkbox;
+  Item.findById(itemId)
+    .then(item => {
+      item.completed = !item.completed;
+      return item.save();
+    })
+    .then(() => {
+      console.log("Estado de la tarea cambiado correctamente");
+      res.redirect('/');
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      res.status(500).send("Error al cambiar el estado de la tarea");
     });
 };

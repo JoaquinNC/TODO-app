@@ -1,29 +1,38 @@
 <%- include("header") -%>
-<div class="box1" id="heading">       
+<div class="box1" id="heading">
+    <img src="icono2.png" alt="" id="icono">       
     <h1>Mis tareas</h1>
 </div>        
 <div class="box">
     
     <!-- Formulario para agregar nuevas tareas -->
     <form id="taskForm" action="/" method="post">
-        <input type="text" id="taskInput" name="n" placeholder="Nueva tarea"> <!-- Add an id to the input -->
-        <button type="submit">Agregar</button>
+        <input type="text" id="taskInput" name="n" placeholder="Nueva tarea">
+        <button type="submit" id="Agregar">Agregar</button>
     </form>
 
     <!-- Lista de tareas existentes -->
     <% for(var i = 0; i < newListItem.length; i++) { %>
-        <div class="item">
-            <div class="round">
-                <input type="checkbox" id="checkbox_<%= i %>" name="checkbox" value="<%= newListItem[i]._id %>">
-                <label for="checkbox_<%= i %>"></label>
+        <div class="item <%= newListItem[i].completed ? 'completed' : '' %>">
+            <div class="task-text" style="flex-grow: 1; display: flex; justify-content: center;">
+                <p class="tareas"><%= newListItem[i].name %></p>
             </div>
-            <p><%= newListItem[i].name %></p>
-            <!-- Botón para eliminar la tarea -->
-            <form action="/delete" method="post" style="display: inline;">
-                <input type="hidden" name="checkbox" value="<%= newListItem[i]._id %>">
-                <button type="submit">Eliminar</button>
-            </form>
-        </div>         
+            <div style="display: inline;">
+                <!-- Botón para completar la tarea -->
+                <form action="/complete" method="post" style="display: inline;">
+                    <input type="hidden" name="checkbox" value="<%= newListItem[i]._id %>">
+                    <button type="submit" class="complete-btn <%= newListItem[i].completed ? 'volver' : '' %>" id="Completar">
+                        <%= newListItem[i].completed ? 'Volver' : 'Completar' %>
+                    </button>
+                </form>
+            
+                <!-- Botón para eliminar la tarea -->
+                <form action="/delete" method="post" style="display: inline;">
+                    <input type="hidden" name="checkbox" value="<%= newListItem[i]._id %>">
+                    <button type="submit" id="Eliminar">Eliminar</button>
+                </form>
+            </div>
+        </div>        
     <% } %>
 </div>
 
@@ -42,5 +51,4 @@
         }
     });
 </script>
-
 
