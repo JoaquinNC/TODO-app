@@ -1,23 +1,46 @@
 <%- include("header") -%>
 <div class="box1" id="heading">       
-    <h1>Today</h1>
+    <h1>Mis tareas</h1>
 </div>        
 <div class="box">
-<% for(var i=0; i<newListItem.length; i++){ %>
-<form action="/delete" method="post">
-     <div class="item">
-        <div class="round">
-        <input type="checkbox" name="checkbox" value="<%= newListItem[i]._id%>" onchange="this.form.submit()" id="checkbox">            
-        <label for="checkbox"></label>
-        </div>
-        <p><%= newListItem[i].name %></p> 
-        <br>
-    </div>         
-</form>      
-<% } %>
+    
+    <!-- Formulario para agregar nuevas tareas -->
+    <form id="taskForm" action="/" method="post">
+        <input type="text" id="taskInput" name="n" placeholder="Nueva tarea"> <!-- Add an id to the input -->
+        <button type="submit">Agregar</button>
+    </form>
 
-<form class="item" action="/" method="post">
-        <input type="text" name="n" placeholder="new"><hr>
-        <button id="b" type="submit" <span id="s2"></span>+</span></button> 
-</form>
+    <!-- Lista de tareas existentes -->
+    <% for(var i = 0; i < newListItem.length; i++) { %>
+        <div class="item">
+            <div class="round">
+                <input type="checkbox" id="checkbox_<%= i %>" name="checkbox" value="<%= newListItem[i]._id %>">
+                <label for="checkbox_<%= i %>"></label>
+            </div>
+            <p><%= newListItem[i].name %></p>
+            <!-- Botón para eliminar la tarea -->
+            <form action="/delete" method="post" style="display: inline;">
+                <input type="hidden" name="checkbox" value="<%= newListItem[i]._id %>">
+                <button type="submit">Eliminar</button>
+            </form>
+        </div>         
+    <% } %>
 </div>
+
+<!-- Add the script here -->
+<script>
+    document.getElementById('taskForm').addEventListener('submit', function(event) {
+        // Obtener el valor del campo de entrada de la tarea
+        const taskInputValue = document.getElementById('taskInput').value.trim();
+    
+        // Verificar si el campo está vacío
+        if (!taskInputValue) {
+            // Mostrar alerta de campo vacío
+            alert('Por favor, ingrese una tarea');
+            // Detener el envío del formulario
+            event.preventDefault();
+        }
+    });
+</script>
+
+
