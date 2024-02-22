@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
-const TodoSchema = new mongoose.Schema({
-  title: String,
-  completed: Boolean
+
+const itemSchema = new mongoose.Schema({
+    name: String
 });
-module.exports = mongoose.model('Todo', TodoSchema);
+
+const Item = mongoose.model("Item", itemSchema);
+
+module.exports = Item;

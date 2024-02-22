@@ -1,16 +1,5 @@
-module.exports = {
-    mongodb: {
-        development: {
-            host: 'localhost',
-            port: 27017,
-            database: 'a definir'
-        }
-    },
-    test: {
-        mongodb: {
-            host: 'localhost',
-            port: 27017,
-            database: 'tareasPrueba'
-        }
-    }
-}
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb://localhost:27017/tareasDB");
+
+module.exports = mongoose;
