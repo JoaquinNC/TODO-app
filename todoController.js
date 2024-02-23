@@ -5,15 +5,7 @@ const Item = require('./todoModel');
 exports.getItems = (req, res) => {
   Item.find({}).sort({ completed: 1 })
     .then(items => {
-        if (items.length === 0) {
-            // Insertar datos si no hay ninguno
-            const defaultItems = [
-                { name: "Esta es una tarea de ejemplo" },
-            ];
-            return Item.insertMany(defaultItems);
-        } else {
-            return items;
-        }
+      return items;
     })
     .then(items => {
         res.render('list', { newListItem: items });
