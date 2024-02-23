@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const todoRoutes = require('./routes/todoRoutes');
 const userRoutes = require('./routes/userRoutes');
+const session = require('express-session');
 const app = express();
 
 const bcrypt = require('bcrypt');
@@ -18,6 +19,13 @@ app.use(express.static('public'));
 
 // Middleware para el análisis del cuerpo de las solicitudes
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Session middleware
+app.use(session({
+  secret: 'your secret key',
+  resave: false,
+  saveUninitialized: true,
+}));
 
 // Conexión a la base de datos
 mongoose.connect("mongodb://localhost:27017/tareasDB");

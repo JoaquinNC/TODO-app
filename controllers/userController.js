@@ -24,12 +24,14 @@ exports.authenticateUser = async (req, res) => {
     }
     const isCorrect = await user.isCorrectPassword(password);
     if (isCorrect) {
+      req.session.userId = user._id;
       // Redirigir al usuario a la página list.ejs si la autenticación es exitosa
       res.redirect('/list');
     } else {
       res.status(500).send('Contraseña incorrecta');
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send('Error al autenticar al usuario');
   }
 };

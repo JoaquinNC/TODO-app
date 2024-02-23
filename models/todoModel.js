@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
   name: String,
-  completed: { type: Boolean, default: false },
+  completed: Boolean,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 const Item = mongoose.model('Item', itemSchema);

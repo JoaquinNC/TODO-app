@@ -3,7 +3,7 @@ const Item = require('../models/todoModel');
 
 //listar
 exports.getItems = (req, res) => {
-  Item.find({}).sort({ completed: 1 })
+  Item.find({ userId: req.session.userId }).sort({ completed: 1 })
     .then(items => {
       return items;
     })
@@ -20,7 +20,10 @@ exports.getItems = (req, res) => {
 exports.createItem = (req, res) => {
   const newItemName = req.body.n;
 
-  const newItem = new Item({ name: newItemName });
+  const newItem = new Item({ 
+    name: newItemName,
+    userId: req.session.userId 
+  });
   newItem.save()
     .then(() => {
         res.redirect('/list');
